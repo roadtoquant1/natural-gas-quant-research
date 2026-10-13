@@ -5,12 +5,11 @@
 An educational, reproducible quantitative-research pipeline. It is **not financial advice**, and a negative
 result is an acceptable, reportable outcome.
 
-> **Status (2026-10-12).** The pipeline, tests and documentation are complete. The project has **not yet been
-> run on real data**: the environment it was built in could not reach EIA or FRED. Every result section in
-> `reports/research_report.md` therefore says *pending* until you run the commands below. The pipeline was
-> verified end to end on clearly labeled synthetic data only (see "How this was verified").
+> **Status:** complete. Run on EIA and FRED data through October 2026, with a single pre-registered
+> evaluation of the untouched test period (June 2024 – October 2026). Full write-up:
+> [`reports/research_report.md`](reports/research_report.md).
 
----
+
 
 ## 1. Project overview
 
