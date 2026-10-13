@@ -12,7 +12,7 @@ result is an acceptable, reportable outcome.
 
 ---
 
-## 1. Project overview, for beginners
+## 1. Project overview
 
 **What is natural-gas storage?** The U.S. produces gas at a fairly steady rate, but uses far more in winter
 (heating) than in summer. The gap is bridged by pumping gas into underground storage in spring and summer
