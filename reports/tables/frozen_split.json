@@ -1,0 +1,12 @@
+{
+  "frozen_at_utc": "2026-10-13T01:52:25+00:00",
+  "spec_hash": "6eaf57785510d913",
+  "spec": {
+    "train_start": "2015-01-08",
+    "train_end": "2022-01-20",
+    "validation_start": "2022-01-27",
+    "validation_end": "2024-05-30",
+    "test_start": "2024-06-06",
+    "test_end": "2026-10-01"
+  }
+}

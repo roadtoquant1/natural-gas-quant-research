@@ -1,0 +1,13 @@
+item,value
+storage weeks (all),875
+first week-ending,2010-01-01
+last week-ending,2026-10-02
+weeks with storage change,874
+weeks with primary anomaly z,614
+weeks aligned to prices,874
+weeks with release date uncertain,64
+weeks using verified release dates,7
+duplicate entry dates (aligned weeks),0
+modeling sample (z and fwd_ret_1d present),613
+development sample (train+validation),491
+5-day windows overlapping next release,869

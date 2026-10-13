@@ -1,0 +1,19 @@
+{
+  "frozen_at_utc": "2026-10-13T01:52:57+00:00",
+  "spec_hash": "0f50c7f494ae82ce",
+  "spec": {
+    "k": 1.5,
+    "holding_days": 1,
+    "one_way_cost_bps": 10.0,
+    "slippage_bps": 5.0,
+    "selection_metric": "mean_net_return_per_week",
+    "split": {
+      "train_start": "2015-01-08",
+      "train_end": "2022-01-20",
+      "validation_start": "2022-01-27",
+      "validation_end": "2024-05-30",
+      "test_start": "2024-06-06",
+      "test_end": "2026-10-01"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+flag,value
+Extreme anomalies |Z| > 3 (dev),5
+Largest |1-day return| (dev),"1.402, 0.615, 0.525, 0.451, 0.382"
+Share of squared 1-day returns from top 5 weeks,61.8%
+Event groups with n < 30,see event-study tables (column small_sample)

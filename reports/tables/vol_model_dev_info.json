@@ -1,0 +1,8 @@
+{
+  "nobs": 491,
+  "r_squared": 0.04700618463384698,
+  "adj_r_squared": 0.041135586181899386,
+  "cov_type": "HAC",
+  "hac_lags": 5,
+  "target": "rv_3d"
+}

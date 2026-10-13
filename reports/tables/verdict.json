@@ -1,0 +1,17 @@
+{
+  "criterion_1_dev_beta_negative_and_significant": false,
+  "criterion_2_test_oos_r2_positive": true,
+  "criterion_3_test_clark_west_significant": true,
+  "H0_rejected_for_returns": false,
+  "dev_beta_z": 0.0012749485770564,
+  "dev_p_hac": 0.7076020766552797,
+  "test_oos_r2": 0.005690742761834788,
+  "test_clark_west_p": 0.019810984173153634,
+  "vol_dev_beta_abs_z": -0.0071745202492461,
+  "vol_dev_p_abs_z": 0.2886456771208814,
+  "vol_test_mae_with_abs_z": 0.06001197903444018,
+  "vol_test_mae_controls_only": 0.05953784785861497,
+  "spec_hash": "2392aa976b5989c0",
+  "test_evaluations_logged": 1,
+  "distinct_specs_evaluated_on_test": 1
+}

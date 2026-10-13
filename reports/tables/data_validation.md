@@ -1,0 +1,40 @@
+### EIA weekly working gas, Lower 48
+
+| Check | Result |
+|---|---|
+| rows | 875 |
+| series | NW2_EPG0_SWO_R48_BCF |
+| units | BCF |
+| first_week_ending | 2010-01-01 |
+| last_week_ending | 2026-10-02 |
+| missing_levels | 0 |
+| non_friday_week_endings | 0 |
+| irregular_spacing_count | 0 |
+| min_level_bcf | 824.0 |
+| max_level_bcf | 4047.0 |
+| revised_weeks_vs_previous_vintage | no earlier vintage archived |
+
+**Warnings**
+
+- Values are current vintage. EIA revises storage estimates (including reclassifications between base and working gas), so the weekly change computed from today's levels can differ from the 'net change' printed on release day.
+
+### Henry Hub spot (DHHNGSP)
+
+| Check | Result |
+|---|---|
+| rows | 7761 |
+| first_date | 1997-01-07 |
+| last_date | 2026-10-06 |
+| valid_prices | 5702 |
+| rows_with_missing_price | 2059 |
+| weekend_rows | 0 |
+| business_days_absent_from_file | 0 |
+| longest_gap_between_valid_prices_days | 41 |
+| min_price | 1.21 |
+| max_price | 30.72 |
+| input_was_sorted | True |
+
+**Warnings**
+
+- No weekend-dated rows: consistent with trade-date labelling, but this is an inference, not a documented fact. The 2-day entry-lag robustness test covers the alternative.
+- A gap of more than 5 calendar days between valid prices exists.

@@ -1,0 +1,10 @@
+storage_week_ending_date,report_release_date,report_release_time_et,reason,source_url,retrieved_on,note
+2024-12-27,2025-01-03,10:30,New Year's Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-01-03,2025-01-08,12:00,National Day of Mourning,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-06-13,2025-06-18,12:00,Juneteenth,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-11-07,2025-11-14,10:30,Veterans Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-11-21,2025-11-26,12:00,Thanksgiving Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-12-19,2025-12-29,12:00,Christmas Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2025-12-26,2025-12-31,12:00,New Year's Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2026-11-06,2026-11-13,10:30,Veterans Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release
+2026-11-20,2026-11-25,12:00,Thanksgiving Day,https://ir.eia.gov/ngs/schedule.html,2026-10-12,week-ending date derived as the latest Friday >=5 days before release

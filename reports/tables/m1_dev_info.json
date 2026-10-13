@@ -1,0 +1,9 @@
+{
+  "nobs": 491,
+  "r_squared": 0.00017799735364076863,
+  "adj_r_squared": -0.0018666284186421578,
+  "cov_type": "HAC",
+  "hac_lags": 5,
+  "target": "fwd_ret_1d",
+  "feature": "z"
+}

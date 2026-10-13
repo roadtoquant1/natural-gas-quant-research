@@ -1,0 +1,141 @@
+# =============================================================================
+# Research configuration.
+#
+# Everything a result depends on lives here, so a reader can see every choice
+# in one place. The "protocol" block was written BEFORE any real data were
+# examined. Changing primary settings after seeing results turns a test into
+# a search, so any change must be logged in reports/research_report.md
+# (section "Protocol deviations") with a reason.
+# =============================================================================
+
+project:
+  random_seed: 20261012
+
+paths:
+  raw: data/raw
+  manual: data/raw/manual
+  interim: data/interim
+  processed: data/processed
+  figures: reports/figures
+  tables: reports/tables
+  report: reports/research_report.md
+
+# -----------------------------------------------------------------------------
+# Data sources
+# -----------------------------------------------------------------------------
+sources:
+  eia_storage:
+    base_url: https://api.eia.gov/v2
+    route: natural-gas/stor/wkly
+    frequency: weekly
+    # Expected series for weekly working gas in underground storage, Total
+    # Lower 48 States, billion cubic feet. The download script verifies this
+    # ID against the live facet listing and stops if it is absent.
+    series_id: NW2_EPG0_SWO_R48_BCF
+    expected_units_contains: BCF
+    start: "2010-01-01"
+    page_length: 5000        # EIA v2 JSON maximum rows per request
+  fred_henry_hub:
+    method: csv              # "csv" (no key) or "api" (needs FRED_API_KEY)
+    csv_url: https://fred.stlouisfed.org/graph/fredgraph.csv
+    api_url: https://api.stlouisfed.org/fred/series/observations
+    series_id: DHHNGSP
+    units: dollars per million Btu
+  # Optional cross-check / tradable-proxy data from EIA. Off by default; turn
+  # on only after the core spot-price analysis works (see README "Extensions").
+  eia_prices:
+    enabled: false
+    route: natural-gas/pri/fut
+    frequency: daily
+    spot_series_id: RNGWHHD      # Henry Hub spot (the source FRED republishes)
+    futures_series_id: RNGC1     # NYMEX front-month continuous contract
+  http:
+    timeout_seconds: 60
+    max_retries: 4
+    backoff_seconds: 2.0
+
+# -----------------------------------------------------------------------------
+# Release timing (Stage 3)
+# -----------------------------------------------------------------------------
+release:
+  # Week-ending date (Friday) + 6 days = nominal Thursday release.
+  nominal_offset_days: 6
+  nominal_time_et: "10:30"
+  # File of release dates verified against EIA's published schedule. Rows here
+  # override the rule-based calendar.
+  verified_release_file: data/raw/manual/eia_wngsr_verified_release_dates.csv
+  # If a federal holiday falls in the release week (Mon..Thu), the true date
+  # may be earlier or later than Thursday. We assume the LATER possibility
+  # (next business day after Thursday) and flag the week as uncertain.
+  # Late-December weeks are also flagged uncertain because ad-hoc federal
+  # closures (e.g. Dec 24/26 executive orders) are not in the holiday calendar.
+  flag_year_end_window: ["12-20", "01-05"]
+  # Entry = the Nth valid price date STRICTLY AFTER the release date.
+  entry_lag_trading_days: 1
+  # A price more than this many calendar days after the release is treated as
+  # a data gap, and that week's targets are left missing.
+  max_entry_gap_calendar_days: 7
+
+# -----------------------------------------------------------------------------
+# Features (Stage 4)
+# -----------------------------------------------------------------------------
+features:
+  # "Comparable" observations: same time of year in PREVIOUS years only.
+  seasonal_window_days: 10          # +/-10 calendar days ~ the same week +/- 1 week
+  min_prior_years: 5                # need at least 5 distinct prior years
+  same_year_exclusion_days: 180     # comparable obs must be >180 days earlier
+  rolling_years: 5                  # Method B lookback (EIA's 5-year average idea)
+  primary_method: expanding_mean    # Method A
+  methods: [expanding_mean, expanding_median, rolling_mean, rolling_median]
+  trailing_vol_days: 20
+  winsor_quantiles: [0.01, 0.99]    # robustness test only, never default
+
+# -----------------------------------------------------------------------------
+# Targets
+# -----------------------------------------------------------------------------
+targets:
+  horizons: [1, 3, 5]
+  primary_return: fwd_ret_1d
+  primary_volatility: rv_3d
+  # The 5-day window crosses the following week's release; we keep it because
+  # the protocol asks for it but flag the overlap in every report.
+
+# -----------------------------------------------------------------------------
+# Pre-registered protocol (Stage 1). Do not edit after seeing results.
+# -----------------------------------------------------------------------------
+protocol:
+  primary_feature: z_expanding_mean
+  primary_target: fwd_ret_1d
+  primary_vol_target: rv_3d
+  hypothesis_test_alpha: 0.05
+  hac_lags: auto                    # floor(4 * (n/100)^(2/9)) Newey-West rule
+  split_fractions: {train: 0.60, validation: 0.20, test: 0.20}
+  walk_forward_min_train_years: 3
+  event_bins: [-.inf, -1.5, -0.5, 0.5, 1.5, .inf]
+  event_labels: [large_negative, moderate_negative, normal, moderate_positive, large_positive]
+  bootstrap_reps: 2000
+  bootstrap_block_length: auto      # ceil(n^(1/3))
+  model_features:
+    m1: [z]
+    m2: [z, prior_ret_5d, trailing_vol_20d, withdrawal_season]
+    wide: [z, z_lag1, anomaly_bcf, prior_ret_1d, prior_ret_5d, trailing_vol_20d,
+           withdrawal_season, woy_sin, woy_cos]
+  volatility_features: [abs_z, trailing_vol_20d, withdrawal_season]
+  # Decision rule for "H0 rejected" (all must hold):
+  #  1. HAC p-value of beta_1 < alpha in the development sample, with beta_1 < 0
+  #  2. Test-period OOS R^2 vs historical mean > 0
+  #  3. Clark-West one-sided p-value < alpha in the test period
+  evidence_rule: dev_significant_and_test_oos_positive_and_clark_west
+
+# -----------------------------------------------------------------------------
+# Backtest (Stage 11) - an economic-signal simulation on spot prices
+# -----------------------------------------------------------------------------
+backtest:
+  k_grid: [0.5, 1.0, 1.5, 2.0]
+  min_trades_for_selection: 10
+  selection_metric: mean_net_return_per_week
+  holding_days: 1
+  one_way_cost_bps: 10.0
+  slippage_bps: 5.0
+  periods_per_year: 52              # one opportunity per weekly release
+  random_benchmark_draws: 1000
