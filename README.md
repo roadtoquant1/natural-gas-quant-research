@@ -189,11 +189,21 @@ log will show it anyway.
 
 ## 7. Main results
 
-**Pending.** No real-data result exists yet. After step 7, the executive summary and conclusion of
-`reports/research_report.md` state, mechanically from the pre-registered rule, whether H0 was rejected, whether
-the relationship was stable out of sample, whether it was economically meaningful, and whether it survived
-costs. Do not copy numbers into this README by hand; link to the report.
+**Storage anomalies did not reliably predict Henry Hub returns or volatility.**
 
+* **Primary test (2015–2024 development data):** slope on the standardized anomaly +0.0013,
+  Newey–West p = 0.71, R² = 0.0002. None of 23 robustness variants was significant.
+* **Untouched test period (2024–2026):** a small out-of-sample gain appeared, but it came from the
+  *opposite* sign to the hypothesis and disappeared when five extreme weeks were removed.
+  Under the pre-registered rule, H0 is not rejected.
+* **Volatility:** the size of the anomaly added nothing beyond recent volatility and season.
+* **Backtest (spot-price simulation, costs included):** −38.5% over 23 trades; 80% of random-signal
+  placebos did at least as well.
+* **Exploratory lead:** short-term price reversal (prior 5-day return) improved forecasts out of
+  sample (walk-forward R² +3.8%), unrelated to storage. It needs its own pre-registered study.
+
+A negative result is consistent with markets pricing storage news before or within minutes of the
+10:30 a.m. release, which daily data cannot capture.
 ---
 
 ## 8. How this was verified (synthetic data only)
